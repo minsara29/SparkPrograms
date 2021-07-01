@@ -1,1 +1,22 @@
 https://github.com/LearningJournal/SparkProgrammingInScala
+
+on-premise cluster
+
+spark-submit
+ --verbose // to get the more details logging when do debug
+ --class guru.learningjournal.spark.example.HelloSpark // package and executable class
+ --files log4j.properties,spark.conf // copy to working directory of driver and executor's container
+ --conf 'spark.driver.extraJavaOptions=-Dlog4j.configuration=log4j.properties -Dlogfile.name=hello-spark-driver'
+ --conf 'spark.executor.extraJavaOptions=-Dlog4j.configuration=log4j.properties -Dlogfile.name=hello-spark-driver'
+ --master yarn
+ --deploy-mode cluster
+ hellospark_2.11-0.1.jar /user/root/data/sample.csv
+
+
+checking the log in yarn
+
+yarn logs =applicationId <applicationId generated after job submission> -log_files hello-spark-driver.log
+yarn logs =applicationId <applicationId generated after job submission> -log_files hello-spark-executor.log
+
+
+
